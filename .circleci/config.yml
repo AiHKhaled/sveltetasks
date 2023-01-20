@@ -12,14 +12,12 @@ jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
  
   save_hello_world_output:
-    environment:
-      CODE: "hello world"
     docker:
       - image: cimg/node:16.10
     steps:
       - run:
           name: output hello world inside a txt file
-          command:  echo $CODE > ~/input.txt
+          command:  echo "hello world" > ~/input.txt
       - persist_to_workspace:
           root: ~/
           paths: 
@@ -31,9 +29,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          name: output froom a different job
-          command:  cat  ~/input.txt
+      - run: cat  ~/input.txt  
    
        
 
