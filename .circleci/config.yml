@@ -49,7 +49,16 @@ jobs:
     steps:
      - print_pipeline_id
        
+  error_message:
+    docker:
+      - image: cimg/node:16.10
 
+    steps:
+      - run: exit 1
+      - run:
+          name: on error
+          command: "hello error"
+          when: on_fail
 
 workflows:
   # Below is the definition of your workflow.
@@ -63,5 +72,6 @@ workflows:
           requires:
             - save_hello_world_output
       - output_env
+      - error_message
       # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
       # - node/test
